@@ -5,6 +5,7 @@
 int main(int argc, char *argv) {
     arvore a = NULL;
     int cresceu;
+    int caiu;
     int valor = 0;
     int opc = 0;
 
@@ -47,7 +48,7 @@ int main(int argc, char *argv) {
                 break;
             case 9:
                 scanf("%d", &valor);
-                a = remover(a, valor);
+                a = remover(a, valor, &caiu);
                 preorder(a);
                 printf("\n");
                 break;

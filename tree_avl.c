@@ -131,7 +131,7 @@ arvore rotacao_dupla_esquerda(arvore pivo) {
 
 void preorder(arvore raiz){
     if(raiz != NULL) {
-        printf("[%d]", raiz->valor);
+        printf("[%d - %d]", raiz->valor, raiz->fb);
         preorder(raiz->esq);
         preorder(raiz->dir);
     }
@@ -338,9 +338,10 @@ arvore podar(arvore raiz, int valor) {
     return raiz;
 }
 
-arvore remover(arvore raiz, int valor) {
+arvore remover(arvore raiz, int valor, int *caiu) {
     if (raiz != NULL) {
         if (raiz->valor == valor) {
+            *caiu = 1;
             if (raiz->esq == NULL && raiz->dir == NULL) {
                 free(raiz);
                 return NULL;
@@ -357,12 +358,46 @@ arvore remover(arvore raiz, int valor) {
             }
             int menor = menor_valor(raiz->dir);
             raiz->valor = menor;
-            raiz->dir = remover(raiz->dir, menor);
+            raiz->dir = remover(raiz->dir, menor, caiu);
             return raiz;
         } else if (valor < raiz->valor) {
-            raiz->esq = remover(raiz->esq, valor);
+            raiz->esq = remover(raiz->esq, valor, caiu);
+            if (*caiu) {
+                //Atualização dos Fatores de Balanço após a árvore à esquerda diminuir
+                switch(raiz->fb) {
+                    case 0:
+                        raiz->fb = 1;
+                        *caiu = 0;
+                        break;
+                    case 1:
+                        *caiu = 0;
+                        return rotacao(raiz);
+                        break;
+                    case -1:
+                        raiz->fb = 0;
+                        *caiu = 1;
+                        break;
+                }
+            }
         } else {
-            raiz->dir = remover(raiz->dir, valor);
+            raiz->dir = remover(raiz->dir, valor, caiu);
+            if (*caiu) {
+                //Atualização dos Fatores de Balanço após a árvore à direita diminuir
+                switch(raiz->fb) {
+                    case 0:
+                        raiz->fb = -1;
+                        *caiu = 0;
+                        break;
+                    case 1:
+                        raiz->fb = 0;
+                        *caiu = 1;
+                        break;
+                    case -1:
+                        *caiu = 0;
+                        return rotacao(raiz);
+                        break;
+                }
+            }
         }
     }
     return raiz;
