@@ -4,8 +4,8 @@
 
 int main(int argc, char *argv) {
     arvore a = NULL;
-    int cresceu;
-    int caiu;
+    int cresceu = 0;
+    int caiu = 0;
     int valor = 0;
     int opc = 0;
 
@@ -56,26 +56,20 @@ int main(int argc, char *argv) {
                 printf("%d\n", soma_par(a));
                 break;
             case 11:
-                scanf("%d", &valor);
-                a = podar(a, valor);
-                preorder(a);
-                printf("\n");
-                break;
-            case 12:
                 dobro(a);
                 preorder(a);
                 printf("\n");
                 break;
-            case 13:
+            case 12:
                 scanf("%d", &valor);
                 printf("%d\n", busca(a, valor));
                 break;
-            case 14:
+            case 15:
                 scanf("%d", &valor);
                 descendentes(a, valor);
                 printf("\n");
                 break;
-            case 15:
+            case 16:
                 printf("%d\n", altura(a));
                 break;
             case 99:

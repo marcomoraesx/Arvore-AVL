@@ -1,12 +1,12 @@
 # depslib dependency file v1.0
-1702133462 source:/home/marco/Faculdade/P3/AED2/ATT_AED2_02/main.c
+1702242190 source:/home/marco/Faculdade/P3/AED2/ATT_AED2_02/main.c
 	<stdio.h>
 	<stdlib.h>
 	"tree_avl.h"
 
-1702133472 /home/marco/Faculdade/P3/AED2/ATT_AED2_02/tree_avl.h
+1702175368 /home/marco/Faculdade/P3/AED2/ATT_AED2_02/tree_avl.h
 
-1702134490 source:/home/marco/Faculdade/P3/AED2/ATT_AED2_02/tree_avl.c
+1702247732 source:/home/marco/Faculdade/P3/AED2/ATT_AED2_02/tree_avl.c
 	"tree_avl.h"
 	<stdlib.h>
 	<stdio.h>

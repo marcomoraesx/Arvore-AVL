@@ -70,9 +70,19 @@ arvore rotacao (arvore pivo) {
             return rotacao_simples_esquerda(pivo);
         } else {
             //Rotação Dupla à Esquerda
-            pivo->fb = 0;
-            pivo->dir->fb = 1;
-            pivo->dir->esq->fb = 0;
+            if (pivo->dir->esq->fb < 0) {
+                pivo->fb = 0;
+                pivo->dir->fb = 1;
+                pivo->dir->esq->fb = 0;
+            } else if (pivo->dir->esq->fb > 0){
+                pivo->fb = -1;
+                pivo->dir->fb = 0;
+                pivo->dir->esq->fb = 0;
+            } else {
+                pivo->fb = 0;
+                pivo->dir->fb = 0;
+                pivo->dir->esq->fb = 0;
+            }
             return rotacao_dupla_esquerda(pivo);
         }
     } else {
@@ -89,9 +99,19 @@ arvore rotacao (arvore pivo) {
             return rotacao_simples_direita(pivo);
         } else {
             //Rotação Dupla à Direita
-            pivo->fb = 0;
-            pivo->esq->fb = -1;
-            pivo->esq->dir->fb = 0;
+            if (pivo->esq->dir->fb < 0) {
+                pivo->fb = 1;
+                pivo->esq->fb = 0;
+                pivo->esq->dir->fb = 0;
+            } else if (pivo->esq->dir->fb > 0) {
+                pivo->fb = 0;
+                pivo->esq->fb = -1;
+                pivo->esq->dir->fb = 0;
+            } else {
+                pivo->fb = 0;
+                pivo->esq->fb = 0;
+                pivo->esq->dir->fb = 0;
+            }
             return rotacao_dupla_direita(pivo);
         }
     }
@@ -317,25 +337,6 @@ int somatorio(arvore raiz){
         soma += raiz->valor + somatorio(raiz->esq) + somatorio(raiz->dir);
     }
     return soma;
-}
-
-arvore podar(arvore raiz, int valor) {
-    if (raiz != NULL) {
-        if (raiz->valor == valor) {
-            if (raiz->esq != NULL) {
-                raiz->esq = podar(raiz->esq, raiz->esq->valor);
-            } else if (raiz->dir != NULL) {
-                raiz->dir = podar(raiz->dir, raiz->dir->valor);
-            }
-            free(raiz);
-            return NULL;
-        } else if (valor < raiz->valor) {
-            raiz->esq = podar(raiz->esq, valor);
-        } else {
-            raiz->dir = podar(raiz->dir, valor);
-        }
-    }
-    return raiz;
 }
 
 arvore remover(arvore raiz, int valor, int *caiu) {

@@ -30,7 +30,6 @@ void dobro(arvore raiz);
 int busca(arvore raiz, int valor);
 void descendentes(arvore raiz, int valor);
 int altura(arvore raiz);
-arvore podar(arvore raiz, int valor);
 arvore remover(arvore raiz, int valor, int *caiu);
 int menor_valor(arvore raiz);
 int maior_valor(arvore raiz);
