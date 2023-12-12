@@ -371,7 +371,7 @@ arvore remover(arvore raiz, int valor, int *caiu) {
                         *caiu = 0;
                         break;
                     case 1:
-                        *caiu = 0;
+                        *caiu = 1;
                         return rotacao(raiz);
                         break;
                     case -1:
@@ -394,7 +394,7 @@ arvore remover(arvore raiz, int valor, int *caiu) {
                         *caiu = 1;
                         break;
                     case -1:
-                        *caiu = 0;
+                        *caiu = 1;
                         return rotacao(raiz);
                         break;
                 }
