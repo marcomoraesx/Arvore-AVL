@@ -342,24 +342,42 @@ int somatorio(arvore raiz){
 arvore remover(arvore raiz, int valor, int *caiu) {
     if (raiz != NULL) {
         if (raiz->valor == valor) {
-            *caiu = 1;
             if (raiz->esq == NULL && raiz->dir == NULL) {
                 free(raiz);
+                *caiu = 1;
                 return NULL;
             }
             if (raiz->esq != NULL && raiz->dir == NULL) {
                 arvore temp = raiz->esq;
                 free(raiz);
+                *caiu = 1;
                 return temp;
             }
             if (raiz->dir != NULL && raiz->esq == NULL) {
                 arvore temp = raiz->dir;
                 free(raiz);
+                *caiu = 1;
                 return temp;
             }
             int menor = menor_valor(raiz->dir);
             raiz->valor = menor;
             raiz->dir = remover(raiz->dir, menor, caiu);
+            if (*caiu) {
+                switch(raiz->fb) {
+                    case 0:
+                        raiz->fb = -1;
+                        *caiu = 0;
+                        break;
+                    case 1:
+                        raiz->fb = 0;
+                        *caiu = 1;
+                        break;
+                    case -1:
+                        *caiu = 1;
+                        return rotacao(raiz);
+                        break;
+                }
+            }
             return raiz;
         } else if (valor < raiz->valor) {
             raiz->esq = remover(raiz->esq, valor, caiu);
@@ -379,6 +397,7 @@ arvore remover(arvore raiz, int valor, int *caiu) {
                         *caiu = 1;
                         break;
                 }
+                return raiz;
             }
         } else {
             raiz->dir = remover(raiz->dir, valor, caiu);
@@ -398,9 +417,11 @@ arvore remover(arvore raiz, int valor, int *caiu) {
                         return rotacao(raiz);
                         break;
                 }
+                return raiz;
             }
         }
     }
+    *caiu = 0;
     return raiz;
 }
 
